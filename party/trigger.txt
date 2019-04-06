@@ -1,0 +1,13 @@
+trig = '''DELIMITER $$
+CREATE TRIGGER before_party_affiliation_update 
+    BEFORE UPDATE ON party
+    FOR EACH ROW 
+BEGIN
+    INSERT INTO affiliation_archive
+    SET action = 'update',
+     memberid = OLD.memberid,
+        partyid = OLD.partyid,
+        changedat = NOW(); 
+END$$
+DELIMITER ;'''
+#cursor.execture(trig)
